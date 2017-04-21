@@ -26,6 +26,6 @@ after_success:
   - if [ "$TAG_4" != "" ]; then docker tag "${image}" "$IMAGE_REPOSITORY:${TAG_4}" ; fi
   - docker images
   - docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}
-  - docker push $IMAGE
+  - docker push $IMAGE_REPOSITORY
 
 # vim:set et ts=2 sw=2:
