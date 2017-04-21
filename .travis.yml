@@ -2,8 +2,8 @@ language: bash
 services: docker
 
 env:
-  - VERSION=8-jre
-  - VERSION=8-jdk
+  - VERSION=8-jre TAG_1=8u121     TAG_3=8     TAG_4=latest
+  - VERSION=8-jdk TAG_2=8u121-jdk TAG_3=8-jdk
 
 install:
   - git clone https://github.com/docker-library/official-images.git ~/official-images
@@ -19,5 +19,11 @@ script:
 
 after_script:
   - docker images
+  - if [ "$TAG_1" != "" ]; then docker tag "$IMAGE_NAME" "$IMAGE:$TAG_1" ; fi
+  - if [ "$TAG_2" != "" ]; then docker tag "$IMAGE_NAME" "$IMAGE:$TAG_2" ; fi
+  - if [ "$TAG_3" != "" ]; then docker tag "$IMAGE_NAME" "$IMAGE:$TAG_3" ; fi
+  - if [ "$TAG_4" != "" ]; then docker tag "$IMAGE_NAME" "$IMAGE:$TAG_4" ; fi
+  - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+  - docker push $IMAGE
 
 # vim:set et ts=2 sw=2:
