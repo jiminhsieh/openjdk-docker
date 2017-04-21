@@ -11,13 +11,12 @@ install:
 before_script:
   - env | sort
   - cd "${VERSION}${VARIANT:+/$VARIANT}"
-  - USER_NAME="jiminhsieh"
-  - image="${USER_NAME}/openjdk:${VERSION}${VARIANT:+-$VARIANT}"
+  - image="${DOCKER_HUB_USERNAME}/openjdk:${VERSION}${VARIANT:+-$VARIANT}"
 
 script:
   - travis_retry docker build -t "$image" .
   - ~/official-images/test/run.sh "$image"
-  - IMAGE_REPOSITORY="${USER_NAME}/openjdk"
+  - IMAGE_REPOSITORY="${DOCKER_HUB_USERNAME}/openjdk"
 
 after_success:
   - if [ "$TAG_1" != "" ]; then docker tag "${image}" "$IMAGE_REPOSITORY:${TAG_1}" ; fi
@@ -26,6 +25,6 @@ after_success:
   - if [ "$TAG_4" != "" ]; then docker tag "${image}" "$IMAGE_REPOSITORY:${TAG_4}" ; fi
   - docker images
   - docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}
-  - docker push $IMAGE_REPOSITORY
+  - docker push ${IMAGE_REPOSITORY}
 
 # vim:set et ts=2 sw=2:
