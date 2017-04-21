@@ -16,6 +16,9 @@ before_script:
 script:
   - travis_retry docker build -t "$image" .
   - ~/official-images/test/run.sh "$image"
+  - USER_NAME="jiminhsieh"
+  - IMAGE_REPOSITORY="$USER_NAME/openjdk"
+  - IMAGE_NAME="$USER_NAME/openjdk:${VERSION}"
 
 after_script:
   - docker images
