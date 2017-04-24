@@ -11,12 +11,12 @@ install:
 before_script:
   - env | sort
   - cd "${VERSION}${VARIANT:+/$VARIANT}"
-  - image="${DOCKER_HUB_USERNAME}/openjdk:${VERSION}${VARIANT:+-$VARIANT}"
+  - IMAGE_REPOSITORY="${DOCKER_HUB_USERNAME}/openjdk"
+  - image="${IMAGE_REPOSITORY}:${VERSION}${VARIANT:+-$VARIANT}"
 
 script:
   - travis_retry docker build -t "$image" .
   - ~/official-images/test/run.sh "$image"
-  - IMAGE_REPOSITORY="${DOCKER_HUB_USERNAME}/openjdk"
 
 after_success:
   - if [ "$TAG_1" != "" ]; then docker tag "${image}" "$IMAGE_REPOSITORY:${TAG_1}" ; fi
