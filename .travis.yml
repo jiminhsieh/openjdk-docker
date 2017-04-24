@@ -2,8 +2,8 @@ language: bash
 services: docker
 
 env:
-  - VERSION=8-jre TAG_1=8u121     TAG_3=8     TAG_4=jre TAG_4=latest
-  - VERSION=8-jdk TAG_2=8u121-jdk TAG_3=8-jdk TAG_4=jdk
+  - VERSION=8-jre TAG_1=8u121     TAG_2=8     TAG_3=jre TAG_4=latest
+  - VERSION=8-jdk TAG_1=8u121-jdk TAG_2=8-jdk TAG_3=jdk
 
 install:
   - git clone https://github.com/docker-library/official-images.git ~/official-images
