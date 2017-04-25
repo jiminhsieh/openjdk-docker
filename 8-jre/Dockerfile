@@ -8,6 +8,7 @@ RUN apt-get update && \
 	apt-get install -y openjdk-8-jre=${JAVA_UBUNTU_VERSION} \
 	openjdk-8-jre-headless=${JAVA_UBUNTU_VERSION} && \
 	rm -rf /var/lib/apt/lists/* && \
-	groupadd -r user_grp && useradd -r -g user_grp user
+	groupadd -r user_grp && useradd -r -g user_grp user && \
+	find / -perm +6000 -type f -exec chmod a-s {} \; || true \
 
 USER user
